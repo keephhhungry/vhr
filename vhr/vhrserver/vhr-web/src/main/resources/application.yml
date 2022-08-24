@@ -1,0 +1,69 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/vhr?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+    initial-size: 10
+    # 最大连接池连接数量，最大活跃连接数
+    max-active: 150
+    # 最小连接池连接数量，最小空闲数量
+    min-idle: 10
+    # 配置获取连接等待超时的时间
+    max-wait: 5000
+    # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+    pool-prepared-statements: false
+    # 指定检测连接sql，如果是null，会影响testWhileIdle、testOnBorrow、testOnReturn失效
+    validation-query: SELECT 1
+    validation-query-timeout: 500
+    # 申请连接时会使用validationQuery检测连接是否有效，
+    # true会降低性能，如果是true，并且检测到连接已关闭，会获取其它的可用的连接
+    test-on-borrow: false
+    # 归还连接时会使用validationQuery检测连接是否有效，
+    # true会降低性能，如果是true，并且检测到连接已关闭，会获取其它的可用的连接，放回数据库线程池
+    test-on-return: false
+    # 建议配置为true，不影响性能，并且保证安全性。
+    # 申请连接的时候检测，如果此连接空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    test-while-idle: true
+    # 配置间隔多久才进行一次检测，Destroy线程检测需要关闭的空闲连接的时间，单位是毫秒
+    time-between-eviction-runs-millis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    min-evictable-idle-time-millis: 30000
+    # max-evictable-idle-time-millis:
+    # 属性类型是字符串，通过别名的方式配置扩展插件，
+    # 常用的插件有： 监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+    # 配置多个英文逗号分隔
+    filters: stat,wall,log4j
+    # 通过connectProperties属性来打开mergeSql功能；记录慢SQL
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+
+
+logging:
+  config: classpath:logback.xml
