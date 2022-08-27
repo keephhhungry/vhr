@@ -1,5 +1,6 @@
 package org.cxyxh.vhr.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.cxyxh.vhr.mapper.MenuMapper;
 import org.cxyxh.vhr.model.Hr;
@@ -27,4 +28,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		Hr user = UserUtils.getCurrentUser();
 		return menuMapper.getMenusByHrId(user.getId());
 	}
+
+	// 开缓存
+	@Override
+	public List<Menu> getAllMenusWithRole() {
+		return menuMapper.getAllMenusWithRole();
+	}
+
+
 }

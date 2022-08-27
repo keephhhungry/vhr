@@ -1,5 +1,7 @@
 package org.cxyxh.vhr.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.cxyxh.vhr.model.Menu;
 import org.cxyxh.vhr.model.Role;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * @date : 2022/8/24 22:09
  * @describetion :
  */
-public interface RoleMapper {
+public interface RoleMapper  extends BaseMapper<Role> {
 
 	int deleteByPrimaryKey(Integer id);
 
@@ -24,4 +26,6 @@ public interface RoleMapper {
 	int updateByPrimaryKey(Role record);
 
 	List<Role> getAllRoles();
+
+	List<Role> getHrRolesById(Integer id);
 }

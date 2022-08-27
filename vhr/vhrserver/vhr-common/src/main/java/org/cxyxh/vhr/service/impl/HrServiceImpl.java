@@ -3,6 +3,7 @@ package org.cxyxh.vhr.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.cxyxh.vhr.mapper.HrMapper;
+import org.cxyxh.vhr.mapper.RoleMapper;
 import org.cxyxh.vhr.model.Hr;
 import org.cxyxh.vhr.service.IHrService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements IHrServi
 	@Autowired
 	HrMapper hrMapper;
 
+	@Autowired
+	RoleMapper roleMapper;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		//查询用户信息
@@ -32,12 +36,10 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements IHrServi
 		wrapper.eq("username", username);
 		wrapper.last("limit 1");
 		Hr hr = hrMapper.selectOne(wrapper);
-		String encode = new BCryptPasswordEncoder().encode("123");
-		System.out.println("密码："+encode);
-		//hr.setPassword(encode);
 		if (Objects.isNull(hr)){
 			throw new UsernameNotFoundException("用户名不存在");
 		}
+		hr.setRoles(roleMapper.getHrRolesById(hr.getId()));
 		return hr;
 	}
 }

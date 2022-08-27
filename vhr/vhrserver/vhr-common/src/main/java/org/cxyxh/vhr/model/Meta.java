@@ -1,5 +1,7 @@
 package org.cxyxh.vhr.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -11,24 +13,11 @@ import java.io.Serializable;
  * @网站 http://www.javaboy.org
  * @时间 2019-09-27 7:07
  */
+@Data
 public class Meta implements Serializable {
+
     private Boolean keepAlive;
 
     private Boolean requireAuth;
 
-    public Boolean getKeepAlive() {
-        return keepAlive;
-    }
-
-    public void setKeepAlive(Boolean keepAlive) {
-        this.keepAlive = keepAlive;
-    }
-
-    public Boolean getRequireAuth() {
-        return requireAuth;
-    }
-
-    public void setRequireAuth(Boolean requireAuth) {
-        this.requireAuth = requireAuth;
-    }
 }

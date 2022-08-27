@@ -35,6 +35,14 @@
         </collection>
     </resultMap>
 
+    <resultMap id="MenuWithRole" type="org.cxyxh.vhr.model.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="org.cxyxh.vhr.model.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+
     <select id="getMenusByHrId" resultMap="Menus2">
         SELECT DISTINCT
             m1.*,
@@ -55,6 +63,16 @@
         WHERE
             m1.`id` = m2.`parentId`
           AND hrr.`hrid` = #{hrid} and hrr.`rid`=mr.`rid` and mr.`mid`=m2.`id` and m2.`enabled`=true order by m1.`id`,m2.`id`
+    </select>
+
+    <select id="getAllMenusWithRole" resultMap="MenuWithRole">
+        select m.*, r.`id` as rid, r.`name` as rname, r.`nameZh` as rnameZh
+        from menu m,
+             menu_role mr,
+             role r
+        where m.`id` = mr.`mid`
+          and mr.`rid` = r.`id`
+        order by m.`id`
     </select>
 
 </mapper>

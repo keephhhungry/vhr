@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -16,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -36,6 +38,12 @@ public class SecurityConfig {
 
 	@Autowired
 	IHrService hrService;
+
+	@Autowired
+	CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource;
+
+	@Autowired
+	CustomUrlDecisionManager customUrlDecisionManager;
 
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -87,9 +95,15 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		System.out.println("12313123");
 		http.authorizeRequests()
-				.anyRequest().authenticated()
+				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+					@Override
+					public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+						object.setAccessDecisionManager(customUrlDecisionManager);
+						object.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
+						return object;
+					}
+				})
 				.and()
 				.formLogin()
 				.usernameParameter("username")
