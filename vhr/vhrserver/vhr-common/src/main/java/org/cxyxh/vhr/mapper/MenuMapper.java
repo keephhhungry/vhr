@@ -14,7 +14,11 @@ import java.util.List;
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
+	List<Menu> getAllMenus();
+
+	// 查询某个用户的全部菜单
 	List<Menu> getMenusByHrId(Integer id);
 
+	// 查询某个角色的全部菜单
 	List<Menu> getAllMenusWithRole();
 }

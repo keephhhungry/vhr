@@ -11,21 +11,21 @@ import java.util.List;
  * @date : 2022/8/24 22:09
  * @describetion :
  */
-public interface RoleMapper  extends BaseMapper<Role> {
+public interface RoleMapper extends BaseMapper<Role> {
 
-	int deleteByPrimaryKey(Integer id);
-
-	int insert(Role record);
-
-	int insertSelective(Role record);
-
-	Role selectByPrimaryKey(Integer id);
-
-	int updateByPrimaryKeySelective(Role record);
-
-	int updateByPrimaryKey(Role record);
-
-	List<Role> getAllRoles();
+	//int deleteByPrimaryKey(Integer id);
+	//
+	//int insert(Role record);
+	//
+	//int insertSelective(Role record);
+	//
+	//Role selectByPrimaryKey(Integer id);
+	//
+	//int updateByPrimaryKeySelective(Role record);
+	//
+	//int updateByPrimaryKey(Role record);
+	//
+	//List<Role> getAllRoles();
 
 	List<Role> getHrRolesById(Integer id);
 }

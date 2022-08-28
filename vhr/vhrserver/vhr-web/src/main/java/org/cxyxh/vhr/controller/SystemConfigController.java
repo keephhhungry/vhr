@@ -23,10 +23,6 @@ public class SystemConfigController {
 
 	@GetMapping("/menu")
 	public List<Menu> getMenusByHrId(){
-		List<Menu> menuList = menuService.getMenusByHrId();
-		for (Menu menu : menuList) {
-			System.out.println(menu.toString());
-		}
-		return menuList;
+		return menuService.getMenusByHrId();
 	}
 }

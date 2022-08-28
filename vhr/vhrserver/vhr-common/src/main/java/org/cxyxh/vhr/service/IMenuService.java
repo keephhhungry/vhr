@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface IMenuService extends IService<Menu> {
 
+	List<Menu> getAllMenus();
+
 	List<Menu> getMenusByHrId();
 
 	List<Menu> getAllMenusWithRole();

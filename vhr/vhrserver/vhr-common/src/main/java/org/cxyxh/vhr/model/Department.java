@@ -1,16 +1,42 @@
 package org.cxyxh.vhr.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Data
+@TableName("department")
 public class Department implements Serializable {
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField("name")
     private String name;
 
+    @TableField("parent_id")
     private Integer parentId;
+
+    @TableField("dep_path")
+    private String depPath;
+
+    @TableField("enabled")
+    private Boolean enabled;
+
+    @TableField("is_parent")
+    private Boolean isParent;
+
+    @TableField(exist = false)
+    private List<Department> children = new ArrayList<>();
+
+    @TableField(exist = false)
+    private Integer result;
 
     public Department() {
     }
@@ -35,75 +61,4 @@ public class Department implements Serializable {
         return Objects.hash(name);
     }
 
-    private String depPath;
-
-    private Boolean enabled;
-
-    private Boolean isParent;
-    private List<Department> children = new ArrayList<>();
-    private Integer result;
-
-    public Integer getResult() {
-        return result;
-    }
-
-    public void setResult(Integer result) {
-        this.result = result;
-    }
-
-    public List<Department> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Department> children) {
-        this.children = children;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getDepPath() {
-        return depPath;
-    }
-
-    public void setDepPath(String depPath) {
-        this.depPath = depPath;
-    }
-
-    public Boolean getParent() {
-        return isParent;
-    }
-
-    public void setParent(Boolean parent) {
-        isParent = parent;
-    }
 }
