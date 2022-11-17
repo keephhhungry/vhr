@@ -15,7 +15,7 @@ proxyObj['/'] = {
 module.exports = {
   devServer: {
     host: 'localhost',
-    port: 8080,//本服务的信息
+    port: 8083,//本服务的信息
     proxy: proxyObj
   }
 }

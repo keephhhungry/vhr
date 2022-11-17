@@ -49,6 +49,12 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 127.0.0.1
+    port: 5672
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -63,6 +69,8 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
+
+
 
 
 logging:

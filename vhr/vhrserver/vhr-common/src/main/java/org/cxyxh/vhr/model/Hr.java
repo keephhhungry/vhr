@@ -1,36 +1,53 @@
 package org.cxyxh.vhr.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class Hr implements UserDetails {
+//@Data
+@TableName("hr")
+public class Hr implements UserDetails{
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField("name")
     private String name;
 
+    @TableField("phone")
     private String phone;
 
+    @TableField("telephone")
     private String telephone;
 
+    @TableField("address")
     private String address;
 
+    @TableField("enabled")
     private Boolean enabled;
 
+    @TableField("username")
     private String username;
 
+    @TableField("password")
     private String password;
 
+    @TableField("userface")
     private String userface;
 
+    @TableField("remark")
     private String remark;
 
     @TableField(exist = false)

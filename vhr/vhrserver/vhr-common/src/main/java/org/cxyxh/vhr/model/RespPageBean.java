@@ -1,5 +1,8 @@
 package org.cxyxh.vhr.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
 /**
@@ -11,23 +14,12 @@ import java.util.List;
  * @网站 http://www.javaboy.org
  * @时间 2019-10-29 7:42
  */
+@Data
+@AllArgsConstructor
 public class RespPageBean {
+
     private Long total;
+
     private List<?> data;
 
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public List<?> getData() {
-        return data;
-    }
-
-    public void setData(List<?> data) {
-        this.data = data;
-    }
 }

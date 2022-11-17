@@ -37,6 +37,12 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 		return departmentList;
 	}
 
+	@Override
+	public List<Department> getAllDepartments() {
+		QueryWrapper<Department> wrapper = new QueryWrapper<>();
+		return departmentMapper.selectList(wrapper);
+	}
+
 	private Department getDepartmentChildren(Department department){
 		if (department == null) {
 			return null;
@@ -76,7 +82,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 		// 查看是否有子部门
 		Department department = departmentMapper.selectById(departmentId);
 		if(Boolean.TRUE.equals(department.getIsParent())){
-			RespBean.error("该部门下有子部门，删除失败");
+			return RespBean.error("该部门下有子部门，删除失败");
 		}
 		// 查看该部门是否有员工 todo
 

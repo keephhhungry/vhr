@@ -3,6 +3,7 @@ package org.cxyxh.vhr.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.cxyxh.vhr.mapper.MenuMapper;
 import org.cxyxh.vhr.mapper.MenuRoleMapper;
 import org.cxyxh.vhr.mapper.RoleMapper;
@@ -48,13 +49,16 @@ public class MenuRoleServiceImpl extends ServiceImpl<MenuRoleMapper, MenuRole> i
 		menuRoleMapper.delete(wrapper);
 
 		List<MenuRole> menuRoles = new ArrayList<>();
-		for (Integer menuId : menuIds) {
-			MenuRole menuRole = new MenuRole();
-			menuRole.setRid(roleId);
-			menuRole.setMid(menuId);
-			menuRoles.add(menuRole);
+		if(ObjectUtils.isNotEmpty(menuIds)){
+			for (Integer menuId : menuIds) {
+				MenuRole menuRole = new MenuRole();
+				menuRole.setRid(roleId);
+				menuRole.setMid(menuId);
+				menuRoles.add(menuRole);
+			}
+			return this.saveBatch(menuRoles);
 		}
 
-		return this.saveBatch(menuRoles);
+		return Boolean.TRUE;
 	}
 }
